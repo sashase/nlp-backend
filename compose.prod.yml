@@ -1,0 +1,8 @@
+services:
+  app:
+    container_name: nlp-backend-prod
+    image: nlp-backend-prod
+    environment:
+      PORT: 3000
+    ports:
+      - 3000:3000
