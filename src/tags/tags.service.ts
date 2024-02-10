@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
 import { TagsRepository } from './tags.repository'
-import { FindPopularTagsDto } from './dtos'
+import { FindPopularTagsDto, SearchTagsDto } from './dtos'
 
 @Injectable()
 export class TagsService {
@@ -24,5 +24,20 @@ export class TagsService {
     if (!popularTags.length) throw new NotFoundException()
 
     return popularTags
+  }
+
+  async searchTags(dto: SearchTagsDto) {
+    const tags = await this.tagsRepository.findMany({
+      where: {
+        name: {
+          contains: dto.query
+        }
+      },
+      take: dto.count
+    })
+
+    if (!tags.length) throw new NotFoundException()
+
+    return tags
   }
 }
