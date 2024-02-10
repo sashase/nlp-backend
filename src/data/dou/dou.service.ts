@@ -1,17 +1,16 @@
 import { Injectable } from '@nestjs/common'
-import { ScrapperService } from '../scrapper/scrapper.service'
 import { HTMLElement } from 'node-html-parser'
 import { GptService } from '../../gpt/gpt.service'
-import { SourceService } from '../interfaces'
-import { FetchDouDto } from '../dtos'
-import { ProcessPostDto } from '../../gpt/dtos'
 import { PostsService } from '../../posts/posts.service'
+import { ProcessPostDto } from '../../gpt/dtos'
 import { CreatePostDto } from '../../posts/dtos'
 import { PostMetadata } from '../../gpt/interfaces'
-// import { CreatePostDto } from 'src/posts/dtos'
+import { ScrapperService } from '../scrapper/scrapper.service'
+import { FetchDouDto } from '../dtos'
+import { SourceService } from '../interfaces'
 
 @Injectable()
-export class DouService implements SourceService {
+export class DouService implements SourceService<FetchDouDto> {
   constructor(
     private readonly scrapperService: ScrapperService,
     private readonly gptService: GptService,

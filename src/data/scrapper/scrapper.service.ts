@@ -1,15 +1,17 @@
-import { HttpException, Injectable } from '@nestjs/common'
-import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
+import { BadGatewayException, Injectable } from '@nestjs/common'
 import parse, { HTMLElement } from 'node-html-parser'
+import { AxiosService } from '../axios/axios.service'
 
 @Injectable()
 export class ScrapperService {
-  async getHTML(url: string, config?: AxiosRequestConfig): Promise<HTMLElement> {
-    const { data } = await axios.get(url, config)
-      .then((res: AxiosResponse) => Promise.resolve(res))
-      .catch((error: AxiosError) => {
-        console.log(error)
-        throw new HttpException(error.response.statusText, error.response.status)
+  constructor(private readonly axiosService: AxiosService) { }
+
+  async getHTML(url: string): Promise<HTMLElement> {
+    const { data } = await this.axiosService.get(url)
+      .then(({ data }) => Promise.resolve(data))
+      .catch(e => {
+        console.log(e)
+        throw new BadGatewayException()
       })
 
     return parse(data)

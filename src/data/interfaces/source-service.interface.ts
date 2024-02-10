@@ -1,3 +1,3 @@
-export interface SourceService {
-  fetch(...args: any[]): Promise<void>
+export interface SourceService<T> {
+  fetch(dto: T): Promise<void>
 }
