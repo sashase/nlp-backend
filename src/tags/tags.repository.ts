@@ -12,9 +12,10 @@ export class TagsRepository {
     cursor?: Prisma.TagWhereUniqueInput,
     where?: Prisma.TagWhereInput,
     orderBy?: Prisma.TagOrderByWithRelationInput
+    include?: Prisma.TagInclude
   }): Promise<Tag[]> {
-    const { skip, take, cursor, where, orderBy } = params
-    return this.prisma.tag.findMany({ skip, take, cursor, where, orderBy })
+    const { skip, take, cursor, where, orderBy, include } = params
+    return this.prisma.tag.findMany({ skip, take, cursor, where, orderBy, include })
   }
 
   async findOne(params: {
