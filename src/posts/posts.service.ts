@@ -114,6 +114,11 @@ export class PostsService {
           }
         ]
       },
+      include: {
+        Source: true,
+        tags: true,
+        Mood: true
+      },
       take: dto.count
     })
 
