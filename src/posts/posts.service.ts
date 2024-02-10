@@ -1,9 +1,9 @@
-import { Injectable } from '@nestjs/common'
+import { Injectable, NotFoundException } from '@nestjs/common'
 import { SourcesRepository } from '../sources/sources.repository'
 import { TagsRepository } from '../tags/tags.repository'
 import { MoodsRepository } from '../moods/moods.repository'
 import { PostsRepository } from './posts.repository'
-import { CreatePostDto } from './dtos'
+import { CreatePostDto, FindByTagsDto } from './dtos'
 
 @Injectable()
 export class PostsService {
@@ -61,5 +61,40 @@ export class PostsService {
     catch (e) {
       console.log(e)
     }
+  }
+
+  findAll() {
+    return this.postsRepository.findMany({
+      include: {
+        Source: true,
+        tags: true,
+        Mood: true
+      }
+    })
+  }
+
+  async findByTag(dto: FindByTagsDto) {
+    const tags: string[] = dto.tags.split(',')
+
+    const posts = await this.postsRepository.findMany({
+      where: {
+        tags: {
+          some: {
+            name: {
+              in: tags
+            }
+          }
+        }
+      },
+      include: {
+        Source: true,
+        tags: true,
+        Mood: true
+      }
+    })
+
+    if (!posts.length) throw new NotFoundException()
+
+    return posts
   }
 }
