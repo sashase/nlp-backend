@@ -11,10 +11,11 @@ export class PostsRepository {
     take?: number,
     cursor?: Prisma.PostWhereUniqueInput,
     where?: Prisma.PostWhereInput,
-    orderBy?: Prisma.PostOrderByWithRelationInput
+    orderBy?: Prisma.PostOrderByWithRelationInput,
+    include?: Prisma.PostInclude
   }): Promise<Post[]> {
-    const { skip, take, cursor, where, orderBy } = params
-    return this.prisma.post.findMany({ skip, take, cursor, where, orderBy })
+    const { skip, take, cursor, where, orderBy, include } = params
+    return this.prisma.post.findMany({ skip, take, cursor, where, orderBy, include })
   }
 
   async findOne(params: {
