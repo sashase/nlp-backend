@@ -3,7 +3,7 @@ import { SourcesRepository } from '../sources/sources.repository'
 import { TagsRepository } from '../tags/tags.repository'
 import { MoodsRepository } from '../moods/moods.repository'
 import { PostsRepository } from './posts.repository'
-import { CreatePostDto, FindByTagsDto } from './dtos'
+import { CreatePostDto, FindByTagsDto, SearchPostsDto } from './dtos'
 
 @Injectable()
 export class PostsService {
@@ -91,6 +91,30 @@ export class PostsService {
         tags: true,
         Mood: true
       }
+    })
+
+    if (!posts.length) throw new NotFoundException()
+
+    return posts
+  }
+
+  async searchPosts(dto: SearchPostsDto) {
+    const posts = await this.postsRepository.findMany({
+      where: {
+        OR: [
+          {
+            title: {
+              contains: dto.query
+            }
+          },
+          {
+            content: {
+              contains: dto.query
+            }
+          }
+        ]
+      },
+      take: dto.count
     })
 
     if (!posts.length) throw new NotFoundException()

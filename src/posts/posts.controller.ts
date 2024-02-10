@@ -1,6 +1,6 @@
 import { Controller, Get, Query } from '@nestjs/common'
 import { PostsService } from './posts.service'
-import { FindByTagsDto } from './dtos'
+import { FindByTagsDto, SearchPostsDto } from './dtos'
 
 @Controller('posts')
 export class PostsController {
@@ -14,5 +14,10 @@ export class PostsController {
   @Get('tags')
   findByTags(@Query() dto: FindByTagsDto) {
     return this.postsService.findByTag(dto)
+  }
+
+  @Get('search')
+  searchPosts(@Query() dto: SearchPostsDto) {
+    return this.postsService.searchPosts(dto)
   }
 }
