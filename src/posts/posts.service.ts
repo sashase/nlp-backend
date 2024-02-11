@@ -93,7 +93,7 @@ export class PostsService {
       }
     })
 
-    if (!posts.length) throw new NotFoundException()
+    if (!posts?.length) throw new NotFoundException()
 
     return posts
   }
@@ -122,7 +122,7 @@ export class PostsService {
       take: dto.count
     })
 
-    if (!posts.length) throw new NotFoundException()
+    if (!posts?.length) throw new NotFoundException()
 
     return posts
   }

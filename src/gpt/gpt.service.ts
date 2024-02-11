@@ -21,20 +21,20 @@ export class GptService {
         ],
         model: 'gpt-3.5-turbo',
       }).then(result => Promise.resolve(result.choices[0].message.content))
-  
+
       const [tagsString, moodString] = result.split(' | ')
-  
+
       if (!tagsString || !moodString) return null
-  
+
       const tags: string[] = tagsString.split(/\s*,\s*/).map(tag => tag.toLowerCase())
       const mood = moodString.toLowerCase()
-  
+
       return {
         tags,
         mood
       }
     }
-    catch(e) {
+    catch (e) {
       console.log(e)
     }
   }
