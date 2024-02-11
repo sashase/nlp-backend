@@ -1,13 +1,15 @@
 import { Controller, Get, HttpCode, Query } from '@nestjs/common'
 import { DouService } from './dou/dou.service'
 import { TechcrunchService } from './techcrunch/techcrunch.service'
-import { FetchDouDto, FetchTechcrunchDto } from './dtos'
+import { MctodayService } from './mctoday/mctoday.service'
+import { FetchDouDto, FetchMctodayDto, FetchTechcrunchDto } from './dtos'
 
 @Controller('data')
 export class DataController {
   constructor(
     private readonly douService: DouService,
-    private readonly techcrunchService: TechcrunchService
+    private readonly techcrunchService: TechcrunchService,
+    private readonly mctodayService: MctodayService
   ) { }
 
   @Get('dou')
@@ -23,6 +25,15 @@ export class DataController {
   @HttpCode(200)
   async fetchTechcrunch(@Query() dto: FetchTechcrunchDto) {
     await this.techcrunchService.fetch(dto)
+    return {
+      status: 'ok'
+    }
+  }
+
+  @Get('mctoday')
+  @HttpCode(200)
+  async fetchMcToday(@Query() dto: FetchMctodayDto) {
+    await this.mctodayService.fetch(dto)
     return {
       status: 'ok'
     }
