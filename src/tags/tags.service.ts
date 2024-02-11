@@ -30,7 +30,8 @@ export class TagsService {
     const tags = await this.tagsRepository.findMany({
       where: {
         name: {
-          contains: dto.query
+          contains: dto.query,
+          mode: 'insensitive'
         }
       },
       take: dto.count

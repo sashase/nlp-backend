@@ -104,12 +104,14 @@ export class PostsService {
         OR: [
           {
             title: {
-              contains: dto.query
+              contains: dto.query,
+              mode: 'insensitive'
             }
           },
           {
             content: {
-              contains: dto.query
+              contains: dto.query,
+              mode: 'insensitive'
             }
           }
         ]
