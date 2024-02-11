@@ -73,7 +73,7 @@ export class PostsService {
     })
   }
 
-  async findByTag(dto: FindByTagsDto) {
+  async findByTags(dto: FindByTagsDto) {
     const tags: string[] = dto.tags.split(',')
 
     const posts = await this.postsRepository.findMany({

@@ -7,13 +7,13 @@ export class PostsController {
   constructor(private readonly postsService: PostsService) { }
 
   @Get()
-  getAllPosts() {
+  findAll() {
     return this.postsService.findAll()
   }
 
   @Get('tags')
   findByTags(@Query() dto: FindByTagsDto) {
-    return this.postsService.findByTag(dto)
+    return this.postsService.findByTags(dto)
   }
 
   @Get('search')
