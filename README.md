@@ -12,8 +12,6 @@
 - Run `docker compose up -d` to start the application in a development environment and detached mode. The server starts on port 3001;
 - Run `docker compose -f compose.yml -f compose.prod.yml up -d` to start the application in a production environment and detached mode. The server starts on port 3000.
 
-# Weather Forecasting Algorithm Documentation
-
 ## Objective
 
 The primary objective of this project is to utilize Natural Language Processing (NLP) techniques to design and deploy a solution for generating metadata for articles that are widely recognized by a large audience.
